@@ -17,11 +17,11 @@ for binary in g:poetv_executables
         echoerr binary . ' executable not found.'
     endif
 endfor
-if !exists('g:poetv_statusline_symbol')
-    let g:poetv_statusline_symbol = ' '
-endif
 if !exists('g:poetv_auto_activate')
     let g:poetv_auto_activate = 0
+endif
+if !exists('g:poetv_statusline_symbol')
+    let g:poetv_statusline_symbol = ''
 endif
 
 " Commands
