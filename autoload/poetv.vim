@@ -42,9 +42,10 @@ function! poetv#activate() abort
     if poetv_dir ==# 'unknown'
         for binary in g:poetv_executables
             let get_venv_cmd = s:get_venv_cmd(binary)
-            let poetv_out = system(get_venv_cmd)
-            if v:shell_error == 0
-                call setbufvar(curr_buffer_name, 'poetv_dir', trim(poetv_out))
+            let poetv_out = trim(system(get_venv_cmd))
+            if v:shell_error == 0 && !empty(poetv_out)
+                let poetv_out = matchstr(poetv_out, '\S*')
+                call setbufvar(curr_buffer_name, 'poetv_dir', poetv_out)
                 break
             else
                 call setbufvar(curr_buffer_name, 'poetv_dir', 'none')
@@ -82,7 +83,7 @@ endfunction
 " Helpers
 function! s:get_venv_cmd(executable)
     if a:executable ==# 'poetry'
-        let venv_cmd = 'poetry env info -p'
+        let venv_cmd = 'poetry env list --full-path'
     elseif a:executable ==# 'pipenv'
         let venv_cmd = 'pipenv --venv'
     else
