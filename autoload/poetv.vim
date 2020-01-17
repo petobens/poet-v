@@ -16,6 +16,10 @@ function! poetv#deactivate() abort
     unlet $VIRTUAL_ENV
     unlet! g:poetv_name
 
+    if exists(':JediUseEnvironment')
+        call s:jedi_venv('')
+    endif
+
     if exists('*airline#extensions#poetv#update')
         call airline#extensions#poetv#update()
     endif
@@ -65,6 +69,10 @@ function! poetv#activate() abort
     let $VIRTUAL_ENV = venv_dir
     let g:poetv_name = fnamemodify(venv_dir, ':t')
 
+    if exists(':JediUseEnvironment')
+        call s:jedi_venv(venv_dir)
+    endif
+
     if exists('*airline#extensions#poetv#update')
         call airline#extensions#poetv#update()
     endif
@@ -90,4 +98,15 @@ function! s:get_venv_cmd(executable)
        echoerr 'Valid options are `poetry` and `pipenv`'
     endif
     return venv_cmd
+endfunction
+
+function! s:jedi_venv(venv) abort
+    if a:venv ==# ''
+        let venv_python_path = g:poetv_global_pypath
+    else
+        let venv_python_path = a:venv . '/bin/python'
+    endif
+    if empty(g:jedi#use_environment) || g:jedi#use_environment !=# venv_python_path
+        silent! execute 'JediUseEnvironment ' . venv_python_path
+    endif
 endfunction
