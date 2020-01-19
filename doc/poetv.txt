@@ -6,24 +6,30 @@ License: MIT
 INTRODUCTION                                                      *poet-v* *poetv*
 
 Poet-v is a vim/nvim plugin that detects and activates virtual environments in
-your python <poetry>(https://github.com/python-poetry/poetry) or
-<pipenv>(https://github.com/pypa/pipenv) project.
+your python <poetry>{https://github.com/python-poetry/poetry} or
+<pipenv>{https://github.com/pypa/pipenv} project.
 
 It is inspired (and closely resembles) both
-<vim-virtualenv>(https://github.com/jmcantrell/vim-virtualenv) and its pipenv
-spin-off <vim-pipenv>(https://github.com/PieterjanMontens/vim-pipenv). However
+<vim-virtualenv>{https://github.com/jmcantrell/vim-virtualenv} and its pipenv
+spin-off <vim-pipenv>{https://github.com/PieterjanMontens/vim-pipenv}. However
 it also adds the ability to interact with virtual environments created by
-poetry.
+poetry and integrates nicely with
+<jedi-vim>{https://github.com/davidhalter/jedi-vim}.
+
 
 COMMANDS                                                        *poetv-commands*
 
 :PoetvActivate                                                  *:PoetvActivate*
-    activates the corresponding poetry or pipenv venv.
+    activates the corresponding poetry or pipenv venv (see |g:poetv_executables|
+    for details regarding order) and enforces jedi to use it (if <jedi-vim> is
+    installed).
+
 :PoetvDectivate                                               *:PoetvDeactivate*
     deactivates the current venv.
 
 There is also a function, `poetv#statusline()`, that retrieves the current venv
-name.
+name (it's used by poet-v to provide out of the box integration with
+{vim-airline}{https://github.com/vim-airline/vim-airline}).
 
 CONFIGURATION                                              *poetv-configuration*
 

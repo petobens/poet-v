@@ -7,7 +7,8 @@ Poet-v is a vim/nvim plugin that detects and activates virtual environments in y
 It is inspired (and closely resembles) both
 [vim-virtualenv](https://github.com/jmcantrell/vim-virtualenv) and its pipenv spin-off
 [vim-pipenv](https://github.com/PieterjanMontens/vim-pipenv). However it also adds the
-ability to interact with virtual environments created by poetry.
+ability to interact with virtual environments created by poetry and integrates nicely with
+[jedi-vim](https://github.com/davidhalter/jedi-vim).
 
 ![](https://user-images.githubusercontent.com/2583971/71567884-35dd0580-2aa1-11ea-9109-829baa65392a.png)
 
@@ -24,7 +25,8 @@ call dein#add('petobens/poet-v')
 Poet-v provides just two commands:
 
 - `PoetvActivate`: activates the corresponding poetry or pipenv venv (see below for
-    details regarding order).
+    details regarding order) and enforces jedi to use it (if
+    [jedi-vim](https://github.com/davidhalter/jedi-vim) is installed).
 - `PoetvDeactivate`: deactivates the current venv.
 
 There is also a function, `poetv#statusline()`, that retrieves the current venv name. It

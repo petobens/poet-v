@@ -7,6 +7,7 @@ let g:poetv_loaded = 1
 if !has('python3')
     echoerr 'Python3 is needed for poet-v to work.'
 endif
+let g:poetv_global_pypath = py3eval('sys.executable')
 
 " Config
 if !exists('g:poetv_executables')
