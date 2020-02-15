@@ -48,7 +48,7 @@ function! poetv#activate() abort
             let get_venv_cmd = s:get_venv_cmd(binary)
             let poetv_out = trim(system(get_venv_cmd))
             if v:shell_error == 0 && !empty(poetv_out)
-                let poetv_out = matchstr(poetv_out, '\S*')
+                let poetv_out = matchstr(poetv_out, '/\S*')
                 call setbufvar(curr_buffer_name, 'poetv_dir', poetv_out)
                 break
             else
