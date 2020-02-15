@@ -20,6 +20,10 @@ function! poetv#deactivate() abort
         call s:jedi_venv('')
     endif
 
+    if get(g:, 'deoplete#enable_at_startup', 0)
+        call s:jedi_venv('', 1)
+    endif
+
     if exists('*airline#extensions#poetv#update')
         call airline#extensions#poetv#update()
     endif
@@ -73,6 +77,10 @@ function! poetv#activate() abort
         call s:jedi_venv(venv_dir)
     endif
 
+    if get(g:, 'deoplete#enable_at_startup', 0)
+        call s:jedi_venv(venv_dir, 1)
+    endif
+
     if exists('*airline#extensions#poetv#update')
         call airline#extensions#poetv#update()
     endif
@@ -100,13 +108,22 @@ function! s:get_venv_cmd(executable)
     return venv_cmd
 endfunction
 
-function! s:jedi_venv(venv) abort
+function! s:jedi_venv(venv, ...) abort
     if a:venv ==# ''
         let venv_python_path = g:poetv_global_pypath
     else
         let venv_python_path = a:venv . '/bin/python'
     endif
-    if empty(g:jedi#use_environment) || g:jedi#use_environment !=# venv_python_path
-        silent! execute 'JediUseEnvironment ' . venv_python_path
+
+    let set_deoplete_jedi = get(a:, 1, 0)
+    if !set_deoplete_jedi
+        if empty(g:jedi#use_environment) || g:jedi#use_environment !=# venv_python_path
+            silent! execute 'JediUseEnvironment ' . venv_python_path
+        endif
+    else
+        let deoplete_jedi_pypath = get(g:, 'deoplete#sources#jedi#python_path')
+        if !deoplete_jedi_pypath || deoplete_jedi_pypath !=# venv_python_path
+            let g:deoplete#sources#jedi#python_path = venv_python_path
+        endif
     endif
 endfunction

@@ -12,17 +12,17 @@ your python <poetry>{https://github.com/python-poetry/poetry} or
 It is inspired (and closely resembles) both
 <vim-virtualenv>{https://github.com/jmcantrell/vim-virtualenv} and its pipenv
 spin-off <vim-pipenv>{https://github.com/PieterjanMontens/vim-pipenv}. However
-it also adds the ability to interact with virtual environments created by
-poetry and integrates nicely with
-<jedi-vim>{https://github.com/davidhalter/jedi-vim}.
+it also adds the ability to interact with virtual environments created by poetry
+and integrates nicely with <jedi-vim>{https://github.com/davidhalter/jedi-vim}
+(and <deoplete-jedi>{https://github.com/deoplete-plugins/deoplete-jedi}).
 
 
 COMMANDS                                                        *poetv-commands*
 
 :PoetvActivate                                                  *:PoetvActivate*
     activates the corresponding poetry or pipenv venv (see |g:poetv_executables|
-    for details regarding order) and enforces jedi to use it (if <jedi-vim> is
-    installed).
+    for details regarding order) and enforces jedi (and deoplete-jedi) to use it
+    (if <jedi-vim>/<deoplete-jedi> is installed).
 
 :PoetvDectivate                                               *:PoetvDeactivate*
     deactivates the current venv.
