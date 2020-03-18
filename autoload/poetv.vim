@@ -80,7 +80,7 @@ function! poetv#activate() abort
     " Actually activate the environment
     let s:prev_path = $PATH
     python3 poetvenv.activate(vim.eval('l:venv_dir'))
-    let $PATH = venv_dir . (has('win32')? '/Scripts': '/bin') . ':'  . $PATH
+    let $PATH = venv_dir . (has('win32')? '/Scripts;': '/bin:') . $PATH
     let $VIRTUAL_ENV = venv_dir
     let g:poetv_name = fnamemodify(venv_dir, ':t')
 
