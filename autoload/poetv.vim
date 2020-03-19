@@ -58,12 +58,12 @@ function! poetv#activate() abort
                 for i in poetv_out_list
                     " Only poetry allows for multiple envs and signals the active
                     " env with an `Activated` keyword
-                    if match (i, '/\S*\s\+\zs(Activated)\ze') != -1
+                    if match (i, '\S*\s\+\zs(Activated)\ze') != -1
                         let poetv_out =  i
                         break
                     endif
                 endfor
-                let poetv_out = matchstr(poetv_out, '\zs/\S*')
+                let poetv_out = matchstr(poetv_out, '\zs\S*')
                 call setbufvar(curr_buffer_name, 'poetv_dir', poetv_out)
                 break
             else
