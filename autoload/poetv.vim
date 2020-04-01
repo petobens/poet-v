@@ -125,7 +125,7 @@ function! s:jedi_venv(venv, ...) abort
     if a:venv ==# ''
         let venv_python_path = g:poetv_global_pypath
     else
-        let venv_python_path = a:venv . '/bin/python'
+        let venv_python_path = a:venv . (has('win32')? '/Scripts': '/bin') . '/python'
     endif
 
     let set_deoplete_jedi = get(a:, 1, 0)
