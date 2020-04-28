@@ -18,8 +18,8 @@ def activate(venv_dir):
     activator_file = 'activate_this.py'
     activator = activator_dir / activator_file
     if not activator.exists():
-        shutil.copy(Path(__file__).resolve().parent / activator_file, activator_dir)
-    with open(activator) as f:
+        shutil.copy((Path(__file__).resolve().parent / activator_file).as_posix(), activator_dir.as_posix())
+    with open(str(activator)) as f:
         exec(f.read(), {'__file__': str(activator)})
 
 
