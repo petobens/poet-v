@@ -45,4 +45,8 @@ g:poetv_statusline_symbol                            *g:poetv_statusline_symbol*
     Symbol to be displayed after venv name returned by `poetv#statusline()`
     function. Default: ''
 
+g:poetv_set_environment                                *g:poetv_set_environment*
+    If set to 1 poet-v will set the `$VIRTUAL_ENV` and `$PATH` environment
+    variables when a venv gets activated. Default: 1
+
 vim:tw=78:ts=8:ft=help:norl:noet:fen:

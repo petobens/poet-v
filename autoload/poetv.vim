@@ -6,14 +6,16 @@ if curr_dir not in sys.path:
 import poetvenv
 EOF
 
+let s:venv_dir = $VIRTUAL_ENV
+
 function! poetv#deactivate() abort
     python3 poetvenv.deactivate()
 
     if exists('s:prev_path')
         let $PATH = s:prev_path
         unlet! s:prev_path
+        unlet $VIRTUAL_ENV
     endif
-    unlet $VIRTUAL_ENV
     unlet! g:poetv_name
 
     if exists(':JediUseEnvironment')
@@ -37,8 +39,8 @@ function! poetv#activate() abort
 
     " Check if a venv is active and matches the current one
     let poetv_dir = getbufvar(curr_buffer_name, 'poetv_dir', 'unknown')
-    if len($VIRTUAL_ENV) > 0
-        if poetv_dir ==# $VIRTUAL_ENV
+    if len(s:venv_dir) > 0
+        if poetv_dir ==# s:venv_dir
             execute 'lcd ' . save_pwd
             return
         else
@@ -71,25 +73,27 @@ function! poetv#activate() abort
             endif
         endfor
     endif
-    let venv_dir =  getbufvar(curr_buffer_name, 'poetv_dir')
-    if venv_dir ==# 'none'
+    let s:venv_dir =  getbufvar(curr_buffer_name, 'poetv_dir')
+    if s:venv_dir ==# 'none'
         execute 'lcd ' . save_pwd
         return
     endif
 
     " Actually activate the environment
-    let s:prev_path = $PATH
-    python3 poetvenv.activate(vim.eval('l:venv_dir'))
-    let $PATH = venv_dir . (has('win32')? '/Scripts;': '/bin:') . $PATH
-    let $VIRTUAL_ENV = venv_dir
-    let g:poetv_name = fnamemodify(venv_dir, ':t')
+    python3 poetvenv.activate(vim.eval('s:venv_dir'))
+    if g:poetv_set_environment
+        let s:prev_path = $PATH
+        let $PATH = s:venv_dir . (has('win32')? '/Scripts;': '/bin:') . $PATH
+        let $VIRTUAL_ENV = s:venv_dir
+    endif
+    let g:poetv_name = fnamemodify(s:venv_dir, ':t')
 
     if exists(':JediUseEnvironment')
-        call s:jedi_venv(venv_dir)
+        call s:jedi_venv(s:venv_dir)
     endif
 
     if get(g:, 'deoplete#enable_at_startup', 0)
-        call s:jedi_venv(venv_dir, 1)
+        call s:jedi_venv(s:venv_dir, 1)
     endif
 
     if exists('*airline#extensions#poetv#update')

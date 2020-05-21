@@ -48,3 +48,6 @@ The following variables (along with their default values) control poet-v behavio
      existing ones) when entering a python window.
 - `g:poetv_statusline_symbol = ''`
     - Symbol to be displayed after venv name returned by `poetv#statusline()` function.
+- `g:poetv_set_environment = 1`
+    - If set to 1 poet-v will set the `$VIRTUAL_ENV` and `$PATH` environment variables
+      when a venv gets activated.
