@@ -63,7 +63,7 @@ function! poetv#activate() abort
                         break
                     endif
                 endfor
-                let poetv_out = matchstr(poetv_out, '\zs\S*')
+                let poetv_out = substitute(poetv_out, ' (Activated)$', '', '')
                 call setbufvar(curr_buffer_name, 'poetv_dir', poetv_out)
                 break
             else
