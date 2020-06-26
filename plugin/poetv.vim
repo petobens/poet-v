@@ -24,6 +24,9 @@ endif
 if !exists('g:poetv_statusline_symbol')
     let g:poetv_statusline_symbol = ''
 endif
+if !exists('g:poetv_set_environment')
+    let g:poetv_set_environment = 1
+endif
 
 " Commands
 command! -bar PoetvActivate
