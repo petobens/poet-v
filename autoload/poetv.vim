@@ -18,7 +18,7 @@ function! poetv#deactivate() abort
     endif
     unlet! g:poetv_name
 
-    if exists(':JediUseEnvironment')
+    if exists(':JediChooseEnvironment')
         call s:jedi_venv('')
     endif
 
@@ -88,7 +88,7 @@ function! poetv#activate() abort
     endif
     let g:poetv_name = fnamemodify(s:venv_dir, ':t')
 
-    if exists(':JediUseEnvironment')
+    if exists(':JediChooseEnvironment')
         call s:jedi_venv(s:venv_dir)
     endif
 
@@ -134,8 +134,8 @@ function! s:jedi_venv(venv, ...) abort
 
     let set_deoplete_jedi = get(a:, 1, 0)
     if !set_deoplete_jedi
-        if empty(g:jedi#use_environment) || g:jedi#use_environment !=# venv_python_path
-            silent! execute 'JediUseEnvironment ' . venv_python_path
+        if empty(g:jedi#environment_path) || g:jedi#environment_path !=# venv_python_path
+            let g:jedi#environment_path = venv_python_path
         endif
     else
         let deoplete_jedi_pypath = get(g:, 'deoplete#sources#jedi#python_path')
