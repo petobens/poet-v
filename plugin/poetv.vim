@@ -16,6 +16,7 @@ if !exists('g:poetv_executables')
         let g:poetv_executables = ['poetry', 'pipenv']
     else
         let g:poetv_executables = ['poetry']
+    endif
 endif
 for binary in g:poetv_executables
     if !executable(binary)
