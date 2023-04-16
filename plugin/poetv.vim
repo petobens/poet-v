@@ -12,7 +12,11 @@ let g:poetv_global_pypath = trim(system('python -c "import sys; print(sys.execut
 
 " Config
 if !exists('g:poetv_executables')
-    let g:poetv_executables = ['poetry', 'pipenv']
+    if executable('pipenv')
+        let g:poetv_executables = ['poetry', 'pipenv']
+    else
+        let g:poetv_executables = ['poetry']
+    endif
 endif
 for binary in g:poetv_executables
     if !executable(binary)
