@@ -116,9 +116,9 @@ function! s:get_venv_cmd(executable) abort
     if a:executable ==# 'poetry'
         " TODO: Use `env info` (and remove list logic above) once the following
         " is fixed: https://github.com/python-poetry/poetry/issues/1870
-        let venv_cmd = 'poetry env list --full-path'
+        let venv_cmd = 'poetry env info -p'
     elseif a:executable ==# 'pipenv'
-        let venv_cmd = 'pipenv --venv'
+        let venv_cmd = 'pipenv --venv -q'
     else
        echoerr 'Valid options are `poetry` and `pipenv`'
     endif
